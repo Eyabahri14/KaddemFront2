@@ -1,0 +1,11 @@
+<div *ngIf="validator.invalid">
+  <div *ngIf="validator.errors?.['required'] && validator.touched">
+    <span class="badge alert-danger">Ce champ est obligatoire</span>
+  </div>
+
+  <div *ngIf="validator.errors?.['minlength']">
+    <span class="badge alert-danger">Nombre de caractéres insuffisant </span>
+  </div>
+
+
+</div>

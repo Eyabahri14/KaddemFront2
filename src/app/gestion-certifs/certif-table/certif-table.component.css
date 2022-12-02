@@ -1,0 +1,22 @@
+label{
+  font-weight: 600;
+  font-size: 14px;
+
+}
+
+input{
+  width: 600px;
+  font-size: 13px;
+
+}
+
+select{
+  width: 600px;
+  font-size: 13px;
+}
+
+.changeBackground{
+  background-color: #ffe6c0;
+}
+
+

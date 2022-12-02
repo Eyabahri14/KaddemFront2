@@ -1,0 +1,277 @@
+
+
+<body class="">
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" href="../index.html">
+      <img src="../assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+    </a>
+    <!-- User -->
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="../index.html">
+              <img src="../assets/img/brand/blue.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Form -->
+      <form class="mt-4 mb-3 d-md-none"  >
+        <div class="input-group input-group-rounded input-group-merge"  >
+          <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fa fa-search"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+      <!-- Navigation  MODIFFFF-->
+      <app-navbar-admin></app-navbar-admin>
+      <!-- Divider -->
+      <!-- Heading -->
+      <!-- Navigation -->
+
+    </div>
+  </div>
+</nav>
+<div class="main-content">
+  <!-- Navbar -->
+
+  <app-user-nav></app-user-nav>
+
+  <div class="header bg-green pb-8 pt-5 pt-md-8">
+  </div>
+
+  <div>
+
+
+<!--BEGINNNNNNN--->
+
+
+
+
+
+    <!--SEARCH -->
+    <div class="col-xs-3" class="form-group" style="margin-top:10px; display: flex;
+  justify-content: space-between;">
+      <input class="form-control " style="width:500px" id="ex2" type="text" class="form-control" placeholder="recherches les partenaires"  [(ngModel)]="term" name="term">
+      <button type="button" class="btn btn-outline-success rounded-pill float-right " style="width: 25vw;margin-bottom:10px" data-toggle="modal" data-target="#exampleModal">
+        Ajouter un paretenaire
+      </button>
+    </div>
+
+    <!--TABLE BEGIN-->
+
+
+
+    <div class="row mt-5">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0" >Partenaires table</h3>
+          </div>
+          <div class="table-responsive">
+  <table class="table align-items-center table-dark table-flush">
+    <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">nomPartenaire</th>
+      <th scope="col">localisation</th>
+      <th scope="col">email</th>
+      <th scope="col">Télephone</th>
+      <th scope="col">support</th>
+
+
+      <th scope="col">Actions</th>
+      <!--      <th scope="col">Role</th> -->
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let e of partenaire|filter:term"  >
+
+      <td>
+
+        {{e.nomPartenaire}}
+      </td>
+
+      <td>
+        {{e.localisation}}
+      </td>
+      <td>
+        {{e.email}}
+      </td>
+      <td >
+        {{e.numTelPar}}
+      </td>
+      <td>
+        {{e.support}}
+      </td>
+
+
+
+
+      <td>
+        <button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#exampleModalE"
+                (click)="edit(e)" ><i class="fa fa-edit" id="edit" aria-hidden="true"></i></button>
+        <button class="btn btn-danger btn-sm"  ><i class="fa fa-trash" id="delete" (click)="deltePartenaire(e.idPartenaire)"  aria-hidden="true"></i></button>
+      </td>
+
+    </tr>
+</table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width:800px">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter Partenaire</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--form-->
+          <form #formCertif="ngForm" (ngSubmit)="add(formCertif)">
+
+
+            <div class="form-group">
+              <label >Nom partenaire  :</label>
+              <input class="form-control"type="text"  name="nomPartenaire" placeholder="nomPartenaire" #nomPartenaire="ngModel" ngModel required maxlength="10" minlength="3">
+            </div>
+
+
+            <div class="form-group">
+              <label >Localisation :</label>
+              <input  class="form-control" type="text" name="localisation" placeholder="localisation" #localisation="ngModel" ngModel required maxlength="10" minlength="3" >
+            </div>
+
+
+
+            <div class="form-group">
+              <label >Email :</label>
+              <input  class="form-control" type="text" #email="ngModel" ngModel required  name="email" placeholder="email ">
+            </div>
+
+
+
+            <div class="form-group">
+              <label >Numero :</label>
+              <input class="form-control" type="number" #numTelPar="ngModel" ngModel required  minlength="8" name="numTelPar" placeholder="numTelPar ">
+            </div>
+
+            <div class="form-group">
+              <label >Support :</label>
+              <input class="form-control" type="text" #support="ngModel" ngModel required  minlength="8" name="support" placeholder="support ">
+            </div>
+
+
+
+
+
+            <div class="form-group">
+              <button type="submit" [disabled]="formCertif.invalid" style="margin-top: 10px;margin-left:120px;width:40%" class="btn btn-warning"><i class="fa-solid fa-person-circle-plus" style="margin-right: 10px"></i>Enregistrer</button>
+            </div>
+          </form>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!---MODIFY MODAL --->
+
+    <div class="modal fade" id="exampleModalE" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelE"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabelE">Update Certification</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #updateForm="ngForm" (ngSubmit)="updatePartenaire()">
+              <div class="form-group">
+
+                <div class="form-group">
+                  <label >Nom Partenaire :</label>
+                  <input class="form-control"type="text" [(ngModel)]="partenaireToUpdate.nomPartenaire" ngModel name="nompartenaire" placeholder="Nom partenaire">
+                </div>
+
+
+                <div class="form-group">
+                  <label >Localisation :</label>
+                  <input  class="form-control" type="text" [(ngModel)]="partenaireToUpdate.localisation" name="localisation" placeholder="localisation"  ngModel >
+                </div>
+
+
+                <div class="form-group">
+                  <label >Email :</label>
+                  <input  class="form-control" type="date" [(ngModel)]="partenaireToUpdate.email"  ngModel   name="email" placeholder="email ">
+                </div>
+
+
+                <div class="form-group">
+                  <label >Numero :</label>
+                  <input class="form-control" type="date" [(ngModel)]="partenaireToUpdate.numTelPar" ngModel  name="numTelPar" placeholder="numero de telephone ">
+                </div>
+
+                <div class="form-group">
+                  <label >Support :</label>
+                  <input class="form-control" type="text" [(ngModel)]="partenaireToUpdate.support"  ngModel  name="support" placeholder="support ">
+                </div>
+
+
+
+                <div class="form-group">
+                  <input type="submit" [disabled]="updateForm.invalid" value="Update" class="btn btn-primary w-100">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+</body>
+
+
+
+
+
+
+
+

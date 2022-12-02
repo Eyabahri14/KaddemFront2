@@ -1,0 +1,246 @@
+
+
+<body class="">
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" href="../index.html">
+      <img src="../assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+    </a>
+    <!-- User -->
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="../index.html">
+              <img src="../assets/img/brand/blue.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Form -->
+      <form class="mt-4 mb-3 d-md-none"  >
+        <div class="input-group input-group-rounded input-group-merge"  >
+          <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fa fa-search"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+      <!-- Navigation  MODIFFFF-->
+      <app-navbar-admin></app-navbar-admin>
+      <!-- Divider -->
+      <!-- Heading -->
+      <!-- Navigation -->
+
+    </div>
+  </div>
+</nav>
+<div class="main-content">
+  <!-- Navbar -->
+
+  <app-user-nav></app-user-nav>
+
+  <div class="header bg-red pb-8 pt-5 pt-md-8">
+  </div>
+
+  <div>
+
+
+    <!--BEGINNNNNNN--->
+
+
+
+
+
+    <!--SEARCH -->
+    <div class="col-xs-3" class="form-group" style="margin-top:10px; display: flex;
+  justify-content: space-between;">
+      <input class="form-control " style="width:500px" id="ex2" type="text" class="form-control" placeholder="recherches les offres"  [(ngModel)]="term" name="term">
+      <button type="button" class="btn btn-outline-success rounded-pill float-right " style="width: 25vw;margin-bottom:10px" data-toggle="modal" data-target="#exampleModal">
+        Ajouter une offre
+      </button>
+    </div>
+
+    <!--TABLE BEGIN-->
+
+
+
+    <div class="row mt-5">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0" >Offres table</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-dark table-flush">
+              <thead class="thead-dark">
+              <tr>
+
+                <th scope="col">Nom offre</th>
+                <th scope="col">Description offre</th>
+                <th scope="col">Type offre</th>
+
+
+                <th scope="col">Actions</th>
+                <!--      <th scope="col">Role</th> -->
+                <th scope="col"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of offre|filter:term"  >
+
+                <td>
+
+                  {{e.nomOffre}}
+                </td>
+                <td>
+                  {{e.descriptionOffre}}
+                </td>
+                <td>
+                  {{e.typeOffre}}
+                </td>
+
+
+
+
+
+                <td>
+                  <button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#exampleModalE"
+                          (click)="edit(e)" ><i class="fa fa-edit" id="edit" aria-hidden="true"></i></button>
+                  <button class="btn btn-danger btn-sm"  ><i class="fa fa-trash" id="delete" (click)="deleteOffre(e.idOffre)"  aria-hidden="true"></i></button>
+                </td>
+
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ajouter Offre</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--form-->
+            <form #formOffer="ngForm" (ngSubmit)="add(formOffer)">
+
+
+              <div class="form-group">
+                <label >Nom offre  :</label>
+                <input class="form-control"type="text"  name="nomOffre" placeholder="nom offre" #nomOffre="ngModel" ngModel required maxlength="10" minlength="3">
+              </div>
+
+
+              <div class="form-group">
+                <label >Description offre :</label>
+                <input  class="form-control" type="text" name="descriptionOffre" placeholder="description offre" #descriptionOffre="ngModel" ngModel required maxlength="10" minlength="3" >
+              </div>
+
+
+
+              <div class="form-group">
+                <label >Type offre :</label>
+                <input  class="form-control" type="text" #typeOffre="ngModel" ngModel required  name="typeOffre" placeholder="Type offre ">
+              </div>
+
+
+
+
+
+              <div class="form-group">
+                <button type="submit" [disabled]="formOffer.invalid" style="margin-top: 10px;margin-left:120px;width:40%" class="btn btn-warning"><i class="fa-solid fa-person-circle-plus" style="margin-right: 10px"></i>Enregistrer</button>
+              </div>
+            </form>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!---MODIFY MODAL --->
+
+    <div class="modal fade" id="exampleModalE" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelE"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabelE">Update Offres</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #updateForm="ngForm" (ngSubmit)="updateOffre()">
+              <div class="form-group">
+
+                <div class="form-group">
+                  <label >Nom offre :</label>
+                  <input class="form-control"type="text" [(ngModel)]="offreToUpdate.nomOffre" ngModel name="nomOffre" placeholder="Nom offre">
+                </div>
+
+
+                <div class="form-group">
+                  <label >Description offre :</label>
+                  <input  class="form-control" type="text" [(ngModel)]="offreToUpdate.descriptionOffre" name="descriptionOffre" placeholder="description offre"  ngModel >
+                </div>
+
+
+                <div class="form-group">
+                  <label >Type offre :</label>
+                  <input  class="form-control" type="text" [(ngModel)]="offreToUpdate.typeOffre"  ngModel   name="typeOffre" placeholder="Type offre ">
+                </div>
+
+
+
+                <div class="form-group">
+                  <input type="submit" [disabled]="updateForm.invalid" value="Update" class="btn btn-primary w-100">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+</body>
+
+
+
+
+
+
+
+

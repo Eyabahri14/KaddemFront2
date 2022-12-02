@@ -1,0 +1,253 @@
+<body class="">
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" href="../index.html">
+      <img src="../assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+    </a>
+    <!-- User -->
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="../index.html">
+              <img src="../assets/img/brand/blue.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Form -->
+      <form class="mt-4 mb-3 d-md-none"  >
+        <div class="input-group input-group-rounded input-group-merge"  >
+          <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fa fa-search"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+      <!-- Navigation  MODIFFFF-->
+      <app-navbar-admin></app-navbar-admin>
+      <!-- Divider -->
+      <!-- Heading -->
+      <!-- Navigation -->
+
+    </div>
+  </div>
+</nav>
+<div class="main-content">
+  <!-- Navbar -->
+
+  <app-user-nav></app-user-nav>
+
+  <div class="header bg-pink pb-8 pt-5 pt-md-8">
+  </div>
+  <!--END DESIGN -->
+
+
+
+  <div class="container">
+
+    <div class="card mt-5" style="padding: 20px;">
+
+
+      <!--TEMPLATE DRIVEN FORM -->
+      <form #formContrat="ngForm" (ngSubmit)="add(formContrat)">
+
+
+        <div class="form-group">
+          <label >Date dubut  :</label>
+          <input class="form-control"type="date"  name="dateDebutContrat" placeholder="date debut contrat" #dateDebutContrat="ngModel" ngModel required >
+        </div>
+        <div *ngIf="dateDebutContrat.invalid">
+          <app-certif-errors [validator]="dateDebutContrat"></app-certif-errors>
+        </div>
+
+        <div class="form-group">
+          <label >Date fin :</label>
+          <input  class="form-control" type="date" name="dateFinContrat" placeholder="date fin" #dateFinContrat="ngModel" ngModel required  >
+        </div>
+        <div *ngIf="dateFinContrat.invalid">
+          <app-certif-errors [validator]="dateFinContrat"></app-certif-errors>
+        </div>
+
+
+        <div class="form-group">
+          <label >Specialite :</label>
+          <input  class="form-control" type="text" #specialite="ngModel" ngModel required  name="specialite" placeholder="specialite ">
+        </div>
+        <div *ngIf="specialite.invalid">
+          <app-certif-errors [validator]="specialite"></app-certif-errors>
+        </div>
+
+
+        <div class="form-group">
+          <label >Archive :</label>
+          <input class="form-control" type="text" #archive="ngModel" ngModel required name="archive" placeholder="archive ">
+        </div>
+        <div *ngIf="archive.invalid">
+          <app-certif-errors [validator]="archive"></app-certif-errors>
+        </div>
+
+        <div class="form-group">
+          <label> Montant contrat :</label>
+          <input class="form-control" type="text" #montantContrat="ngModel" ngModel required  minlength="8" name="montantContrat" placeholder="montant contrat ">
+        </div>
+
+        <div *ngIf="montantContrat.invalid">
+          <app-certif-errors [validator]="montantContrat"></app-certif-errors>
+        </div>
+
+
+
+        <div class="form-group">
+          <button type="submit" [disabled]="formContrat.invalid" style="margin-top: 10px;margin-left:120px;width:40%" class="btn btn-warning"><i class="fa-solid fa-person-circle-plus" style="margin-right: 10px"></i>Enregistrer</button>
+        </div>
+      </form>
+      <!--END FORM -->
+    </div>
+    <!--SEARCH -->
+    <div class="col-xs-3" class="form-group" style="margin-top:10px; display: flex;
+  justify-content: space-between;">
+      <input class="form-control" id="ex2" type="text" class="form-control" placeholder="recherches les certifications" [ngClass]="{changeBackground: term !=''}" [(ngModel)]="term" name="term">
+    </div>
+
+    <div class="mt-5">
+      <table class="table align-items-center table-bordered table-flush">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">Date debut </th>
+          <th scope="col">Date fin </th>
+          <th scope="col">Specialite</th>
+          <th scope="col">Archive</th>
+          <th scope="col">Montant contrat</th>
+
+
+          <th scope="col">Actions</th>
+          <!--      <th scope="col">Role</th> -->
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of contrat|filter:term"  >
+          <td >
+
+            {{c.dateDebutContrat}}
+          </td>
+
+          <td>
+            {{c.dateFinContrat}}
+          </td>
+          <td>
+            {{c.specialite}}
+          </td>
+          <td>
+            {{c.archive}}
+          </td>
+          <td>
+            {{c.montantContrat}}
+          </td>
+
+
+          <td>
+            <button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#exampleModal"
+                    (click)="edit(c)" ><i class="fa fa-edit" id="edit" aria-hidden="true"></i></button>
+            <button (click)="deleteContrat(c.idContrat)" class="btn btn-danger btn-sm"  ><i class="fa fa-trash" id="delete"   aria-hidden="true"></i></button>
+          </td>
+
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  <!---MODIFY MODAL --->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width:800px">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Certification</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #updateForm="ngForm" (ngSubmit)="updateContrat()">
+            <div class="form-group">
+
+              <div class="form-group">
+                <label >Date debut :</label>
+                <input class="form-control"type="date" [(ngModel)]="contratToUpdate.dateDebutContrat" name="dateDebutContrat" placeholder="data debut" #dateDebutContrat="ngModel" ngModel required >
+              </div>
+              <div *ngIf="dateDebutContrat.invalid">
+                <app-certif-errors [validator]="dateDebutContrat"></app-certif-errors>
+              </div>
+
+
+              <div class="form-group">
+                <label >Date fin :</label>
+                <input  class="form-control" type="date" [(ngModel)]="contratToUpdate.dateFinContrat" name="dateFinContrat" placeholder="data fin" #dateFinContrat="ngModel" ngModel required >
+              </div>
+              <div *ngIf="dateFinContrat.invalid">
+                <app-certif-errors [validator]="dateFinContrat"></app-certif-errors>
+              </div>
+
+
+
+              <div class="form-group">
+                <label>specialite :</label>
+                <input class="form-control" type="date" [(ngModel)]="contratToUpdate.specialite" #specialite="ngModel" ngModel required name="specialite" placeholder="specialite">
+              </div>
+              <div *ngIf="specialite.invalid">
+                <app-certif-errors [validator]="specialite"></app-certif-errors>
+              </div>
+
+              <div class="form-group">
+                <label >Archive :</label>
+                <input class="form-control" type="text" [(ngModel)]="contratToUpdate.archive" #archive="ngModel" ngModel required  name="archive" placeholder="archive ">
+              </div>
+              <div *ngIf="archive.invalid">
+                <app-certif-errors [validator]="archive"></app-certif-errors>
+              </div>
+
+              <div class="form-group">
+                <label >Montrant :</label>
+                <input  class="form-control" type="text" [(ngModel)]="contratToUpdate.montantContrat" #montantContrat="ngModel" ngModel required  name="montantContrat" placeholder="montrant contrat ">
+              </div>
+              <div *ngIf="montantContrat.invalid">
+                <app-certif-errors [validator]="montantContrat"></app-certif-errors>
+              </div>
+
+              <div class="form-group">
+                <input type="submit" [disabled]="updateForm.invalid" value="Update" class="btn btn-primary w-100">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
